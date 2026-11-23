@@ -17,7 +17,7 @@ require-module fzf-jj
 
 declare-user-mode fzf-vcs
 
-define-command -hidden -docstring 'Wrapper command for fzf vcs to automatically decect
+define-command -hidden -docstring 'Wrapper command for fzf vcs to automatically detect
 used version control system.
 
 Supported vcs:
@@ -28,11 +28,11 @@ Supported vcs:
     Jujutsu:       "jj"
 ' \
 fzf-vcs %{ evaluate-commands %sh{
-    commands="git rev-parse --is-inside-work-tree
+    commands="jj workspace root
+git rev-parse --is-inside-work-tree
 svn info
 hg --cwd . root
-bzr status
-jj workspace root"
+bzr status"
     IFS='
 '
     for cmd in $commands; do
